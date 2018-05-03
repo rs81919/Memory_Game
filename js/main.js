@@ -13,8 +13,9 @@ var flipCard = function (cardId) {
     cardsInPlay.push(cardId);
     if (cardsInPlay.length === 2) {
         //This is to check if length equals 
+        checkForMatch();
     }
-    checkForMatch();
+    
 };
 flipCard(0);
 flipCard(2);
