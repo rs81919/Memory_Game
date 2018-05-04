@@ -1,3 +1,4 @@
+//array of card data
 var cards = [
     {
         card: "queen",
@@ -21,28 +22,38 @@ var cards = [
     },
 
 ];
+
 var cardsInPlay = [];
-var checkForMatch = function()  {
+//function to check and see if the flipped card is a match. Returns if you found a match or need to try again
+var checkForMatch = function () {
     if (cardsInPlay[0] === cardsInPlay[1]) {
         alert("You found a match!");
     }
     else {
         alert("Sorry, try again.");
     }
-}
-var flipCard = function (cardId) {
-    console.log("User flipped " + cards[cardId].card);
-    cardsInPlay.push(cards[cardId].card);
-    if (cardsInPlay.length === 2) {
-        //This is to check if length equals 
-        checkForMatch();
-    }
-    console.log(cards[cardId].cardImage)
-    console.log(cards[cardId].suit) 
 };
-flipCard(0);
-flipCard(2);
 
+//function for when the user flips a card it pushes that card in the cards in play.
+var flipCard = function () {
+    cardId = this.getAttribute('data-id');
+    console.log(cardId);
+    cardsInPlay.push(cards[cardId].card);
+    this.setAttribute('src', cards[cardId].cardImage);
+    if (cardsInPlay.length === 2) {
+        checkForMatch();
+        cardsInPlay = [];
+    }
+};
 
+var createBoard = function () {
+    for (var i = 0; i < cards.length; i++) {
+        var cardElement = document.createElement('img');
+        cardElement.setAttribute('src', 'images/back.png');
+        cardElement.setAttribute('data-id', i);
+        cardElement.addEventListener('click', flipCard);
+        document.getElementById('game-board').appendChild(cardElement);
 
-
+    }
+}
+createBoard();
